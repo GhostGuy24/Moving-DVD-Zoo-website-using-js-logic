@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <img src="media/dvdicon.jpeg"  id="dvd" style="position: absolute; filter: hue-rotate(180deg)" alt="dvdicon" width="150" height="100"/>
+
+    <script>
+        let stepSizeTop = 0;
+        let stepSizeLeft = 0;
+        let delta = 10;
+        let deltaTop = 10;
+        let deltaLeft = 10;
+        let dvdColor = 0;
+        function moveDvd() {
+            
+            console.log(dvd.style.top, dvd.style.left, delta, window.innerHeight, dvd.height, dvd.width)
+            if (stepSizeTop > window.innerHeight - dvd.height) {
+              deltaTop = -delta * Math.random()
+              dvdColor = Math.random() * 360 
+              dvd.style.filter = `hue-rotate(${dvdColor}deg)`
+            }  
+            else if (stepSizeTop < 0){
+                deltaTop = delta * Math.random()
+                dvdColor = Math.random() * 360 
+                dvd.style.filter = `hue-rotate(${dvdColor}deg)`
+
+
+            }
+            
+            if (stepSizeLeft > window.innerWidth - dvd.width) {
+                deltaLeft = -delta * Math.random()
+                dvdColor = Math.random() * 360 
+                dvd.style.filter = `hue-rotate(${dvdColor}deg)`
+
+
+            }
+            else if (stepSizeLeft < 0) {
+                deltaLeft = delta * Math.random()
+                dvdColor = Math.random() * 360 
+                dvd.style.filter = `hue-rotate(${dvdColor}deg)`
+                
+            }
+
+            stepSizeTop += deltaTop;
+            stepSizeLeft += deltaLeft;
+            dvd.style.top = `${stepSizeTop}px`;
+            dvd.style.left = `${stepSizeLeft}px`;
+            
+
+
+
+        }
+   setInterval(moveDvd,100)
+
+
+
+    </script>
+
+
+
+
+
+</body>
+
+</html>

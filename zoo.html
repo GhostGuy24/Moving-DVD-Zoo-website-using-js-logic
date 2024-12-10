@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zoo</title>
+
+    <style>
+        img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Our Animals</h1>
+    <button onclick="addAnimal()">Add Animal</button>
+
+    Name:<input id="animalName" type="text">
+    Lifespan:<input id="lifespan" type=" number">
+    Diet:<input id="diet" type="text">
+    FunFact:<input id="funfact" type="text">
+    Image: <input id="aPhoto" type="file">
+    <hr>
+    <div id="display"></div>
+
+    <script>
+
+        const defaultAnimals = [{
+            'image': '<img src="media/lion.jpeg" alt="">',
+            'Name': 'Lion',
+            'Lifespan': '10-14 Years',
+            'Diet': 'Carnivorous; primarily hunts large herbivores such as zebras, wildebeests, and antelopes.',
+            'Habitat': 'Grasslands, savannas, and open woodlands across sub-Saharan Africa.',
+            'FunFact': 'Lions are the only cats that live in social groups, called prides, consisting of multiple females, their offspring, and a few males.'
+        },
+        {
+            'image': '<img src="media/penguin.jpeg" alt="">',
+            'Name': 'Penguin',
+            'Lifespan': '15-20 Years',
+            'Diet': 'Carnivorous; primarily feeds on fish, krill, and squid.',
+            'Habitat': 'Found in the Southern Hemisphere, especially in Antarctica and nearby islands.',
+            'FunFact': 'Emperor penguins are the only penguins to breed during the harsh Antarctic winter, enduring temperatures as low as -60°C (-76°F).'
+        },
+        {
+            'image': '<img src="media/owl.jpg" alt="">',
+            'Name': 'Owl',
+            'Lifespan': '4-10 Years',
+            'Diet': 'Carnivorous; preys on small mammals, birds, and insect',
+            'Habitat': 'Found worldwide in diverse environments such as forests, grasslands, and even urban areas.',
+            'FunFact': 'Exceptional night vision and the ability to rotate their heads up to 270 degrees for better visibility.'
+        },
+        {
+            'image': '<img src="media/EasterEgg.jpeg" alt="">',
+            'Name': 'Simba',
+            'Lifespan': '12-15 Years',
+            'Diet': 'Mostly dogs food, loves most Bananna and whatever we are having.',
+            'Habitat': 'Couch, bed and the dogs park.',
+            'FunFact': 'Can use a super power called Puppi Eyes to change your will.'
+        }];
+
+        // should I take default animals? or animals from local storage?
+
+        function initAnimals() {
+            if (localStorage.key('animals')) {
+                console.log("bringing from localstorage");
+
+                const animalsFromLocalStorageString = localStorage.getItem('animals');
+                const animalsFromLocalStorageObject = JSON.parse(animalsFromLocalStorageString)
+                return animalsFromLocalStorageObject
+
+            } else {
+                console.log("using defult")
+                return defaultAnimals
+            }
+
+
+        };
+        //console.log(initAnimal());
+        let animals = initAnimals();
+
+
+
+
+
+        function displayAnimals() {
+             display.innerHTML = '';
+            for (let i = 0; i < animals.length; i++) {
+                display.innerHTML +=
+                    `<style= height: 150px , width: 200px>${animals[i].image}<br>
+              Name: ${animals[i].Name}<br>
+              Lifespan: ${animals[i].Lifespan} <br>             
+              Diet: ${animals[i].Diet}         
+              FunFact: ${animals[i].FunFact}<br>
+              <button onclick= "deleteAnimal(${i})" > Delete Animal </button><br>
+              <button onclick= "updateAnimal(${i})" > Update </button><br>`
+              
+              ;
+
+            }
+
+        }
+        displayAnimals()
+
+        function addAnimal() {
+
+            animals.push({ 'Image': aPhoto.value, 'Name': animalName.value, 'Lifespan': lifespan.value, 'Diet': diet.value, 'FunFact': funfact.value });
+            displayAnimals();
+
+            localStorage.setItem('animals', JSON.stringify(animals))
+
+        };
+
+        function deleteAnimal(indexToDelete) {
+            animals.splice(indexToDelete,1)
+            
+            localStorage.setItem('animals', JSON.stringify(animals))
+
+            displayAnimals()
+
+        }
+        function updateAnimal(indexToUpdate) {
+            let animalToUpdate = animals[indexToUpdate]
+    
+            animalToUpdate.Name = animalName.value;
+            animalToUpdate.Lifespan = lifespan.value;
+            animalToUpdate.Diet = diet.value;
+            animalToUpdate.FunFact = funfact.value;
+            localStorage.setItem('animals', JSON.stringify(animals))
+
+            displayAnimals();
+        }
+
+
+
+
+        // function innerFunctionStr(param) {
+        //     // param = 'Guy'
+        //     console.log('innerFunction - ', param);
+        // }
+
+        // function outerFunctionStr() {
+        //     let param = 'Ron';
+        //     innerFunctionStr(param);
+        //     console.log('outerFunction - ', param);
+        // }
+
+
+        // outerFunctionStr()
+
+        // function innerFunction(param) {
+        //     param.push('Guy')
+        //     console.log('innerFunction - ', param);
+        //     return 'Zaken'
+        // }
+
+        // function outerFunction() {
+        //     let param = ['Ron'];
+        //     const lastName = innerFunction(param);
+        //     console.log('outerFunction - ', param);
+        // }
+
+
+        // outerFunction();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+
+</html>
